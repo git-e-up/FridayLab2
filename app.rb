@@ -141,4 +141,4 @@ end
 
 #travel=# CREATE TABLE locations (id SERIAL PRIMARY KEY, city VARCHAR(255));
 
-#travel=# CREATE TABLE visits (id SERIAL PRIMARY KEY, user_id INTEGER, location_id INTEGER);
+#CREATE TABLE visits (id SERIAL PRIMARY KEY, user_id INTEGER REFERENCES users(id), location_id INTEGER REFERENCES locations(id));
