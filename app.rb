@@ -68,21 +68,21 @@ end
 post '/api/locations' do
   content_type :json
   location = Location.create(params[:location])
-  user.to_json
+  location.to_json
 end
 #Create a new location
 put '/api/locations/:id' do
   content_type :json
   location = Location.find(params[:id].to_i)
   location.update(params[:location])
-  user.to_json
+  location.to_json
 end
 #Update an existing location
 patch '/api/locations/:id' do
   content_type :json
   location = Location.find(params[:id].to_i)
   location.update(params[:location])
-  user.to_json
+  location.to_json
 end
 #Update an existing location
 delete '/api/locations/:id' do
@@ -94,16 +94,51 @@ end
 get '/api/visits' do
   content_type :json
   visits = Visit.all
-  visits.to_json
+  visits.to_json(:include => [:user, :location])
 end
 #All visits
 get '/api/visits/:id' do
-A specific visit
+  content_type :json
+  visit = Visit.find(params[:id].to_i)
+  visit.to_json(:include => [:user, :location])
+end
+#A specific visit
 post '/api/visits' do
-Create a new visit
+  content_type :json
+  visit = Visit.create(params[:visit])
+  visit.to_json
+end
+# Create a new visit
 put '/api/visits/:id' do
-Update an existing
+  content_type :json
+  visit = Visit.find(params[:id].to_i)
+  visit.update(params[:visit])
+  visit.to_json
+end
+
+# Update an existing visit
 patch '/api/visits/:id' do
-Update an existing visit
+  content_type :json
+  visit = Visit.find(params[:id].to_i)
+  visit.update(params[:visit])
+  visit.to_json
+end
+# Update an existing visit
+
+
 delete '/api/visits/:id' do
-Delete an existing visit
+  content_type :json
+  visit = Visit.delete(params[:id].to_i)
+  visit.to_json
+end
+# Delete an existing visit
+
+
+#Matthew=# CREATE DATABASE travel
+
+#travel=# CREATE TABLE users (id SERIAL PRIMARY KEY, name VARCHAR(255));
+
+
+#travel=# CREATE TABLE locations (id SERIAL PRIMARY KEY, city VARCHAR(255));
+
+#travel=# CREATE TABLE visits (id SERIAL PRIMARY KEY, user_id INTEGER, location_id INTEGER);
